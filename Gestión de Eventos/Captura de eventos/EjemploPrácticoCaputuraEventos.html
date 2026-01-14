@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio: El Objeto Evento</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+        }
+
+        h1 { font-size: 1.5rem; margin-bottom: 1rem; }
+        
+        p { margin-bottom: 1.5rem; line-height: 1.5; }
+
+        /* Estilo del botón */
+        #miBoton {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        #miBoton:hover {
+            background-color: #2980b9;
+        }
+
+        .nota {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #666;
+            background: #fff3cd;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ffeeba;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>Inspección del Evento</h1>
+        <p>Abre la consola del navegador <strong>(F12)</strong> y pulsa el botón para ver los datos del evento.</p>
+
+        <form>
+            <button id="miBoton">Haz Click Aquí</button>
+        </form>
+
+        <div class="nota">
+            <strong>Nota:</strong> Como hay un <code>preventDefault()</code>, el formulario NO se enviará y la página NO se recargará.
+        </div>
+    </div>
+
+    <script>
+        
+        document.getElementById("miBoton").addEventListener("click", (e) => {
+            console.group("Datos del Evento Capturado"); 
+            
+            console.log("Elemento pulsado (target):", e.target);      
+            console.log("Tipo de evento (type):", e.type);          
+            console.log("Milisegundos (timeStamp):", e.timeStamp);       
+            
+            console.groupEnd();
+
+            // Evitamos cualquier acción por defecto (en este caso, enviar el formulario)
+            e.preventDefault(); 
+            
+         
+        });
+    </script>
+
+</body>
+</html>

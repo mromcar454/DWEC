@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mover listas múltiples</title>
+    <style>
+		.contenedor { display: flex; gap: 20px; font-family: sans-serif; }
+		.lista {
+			width: 200px;
+			min-height: 200px;
+			border: 1px solid #ccc;
+			padding: 10px;
+			background: #f4f4f4;
+		}
+		.item-lista {
+			background: white;
+			border: 1px solid #999;
+			padding: 8px;
+			margin-bottom: 5px;
+			cursor: grab;
+		}
+		.lista-activa {
+			background: #e8f8f5;
+			border-color: #16a085;
+		}
+	</style>
+</head>
+
+<body>
+    <div class="contenedor">
+        <div class="lista" id="lista-origen">
+            <h3>Disponibles</h3>
+            <div class="item-lista" draggable="true" id="prod-1">🍎 Manzana</div>
+            <div class="item-lista" draggable="true" id="prod-2">🍐 Pera</div>
+            <div class="item-lista" draggable="true" id="prod-3">🍌 Plátano</div>
+        </div>
+
+        <div class="lista" id="lista-destino">
+            <h3>Cesta</h3>
+        </div>
+    </div>
+
+    <script>
+        // 1. Seleccionamos TODOS los elementos arrastrables
+        const productos = document.querySelectorAll('.item-lista');
+        const listas = document.querySelectorAll('.lista');
+
+        // 2. Asignamos el evento 'dragstart' a CADA producto (bucle)
+        productos.forEach(producto => {
+            producto.addEventListener('dragstart', (e) => {
+                e.dataTransfer.setData("text/plain", e.currentTarget.id);
+                e.dataTransfer.effectAllowed = "move";
+            });
+        });
+
+        // 3. Preparamos TODAS las listas como destinos (mover entre listas)
+        listas.forEach(lista => {
+            lista.addEventListener('dragover', (e) => {
+                e.preventDefault(); // Autorizamos soltar
+                e.currentTarget.classList.add('lista-activa');
+                e.dataTransfer.dropEffect = "move";
+            });
+
+            lista.addEventListener('dragleave', (e) => {
+                e.currentTarget.classList.remove('lista-activa');
+            });
+
+            lista.addEventListener('drop', (e) => {
+                e.preventDefault();
+                e.currentTarget.classList.remove('lista-activa');
+
+                const idProducto = e.dataTransfer.getData("text/plain");
+                const elementoProducto = document.getElementById(idProducto);
+
+                if (elementoProducto) {
+                    e.currentTarget.appendChild(elementoProducto);
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

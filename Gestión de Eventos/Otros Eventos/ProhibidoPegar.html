@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form name="formulario" method="post" action="procesa.php">
+        <input type="email" id="email" name="email" placeholder="Email" autocomplete="email" />
+        <input type="email" id="repemail" name="emailconf" placeholder="Repite Email" autocomplete="off" />
+        <small id="aviso" style="display:block; margin:6px 0 12px; color:#b00020;"></small>
+        <input type="submit" name="submit" value="Enviar >" />
+    </form>
+
+    <script>
+        const elemento = document.getElementById("repemail");
+        const aviso = document.getElementById('aviso');
+
+        elemento.addEventListener("paste", (ev) => {
+            ev.preventDefault();
+            aviso.textContent = "No se permite pegar en este campo.";
+        });
+    </script>
+
+</body>
+</html>

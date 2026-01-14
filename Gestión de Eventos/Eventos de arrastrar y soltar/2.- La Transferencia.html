@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="origen-unico" style="padding: 10px; border: 1px solid #333; margin-bottom: 20px;">
+        <div id="zorro" draggable="true" style="background: orange; padding: 10px; width: 150px; cursor: move;">
+            🦊 Zorro (Item)
+        </div>
+    </div>
+
+    <div id="destino-unico" style="height: 100px; background: #ddd; border: 2px solid #666; padding: 10px;">
+        Suelta al Zorro aquí
+    </div>
+
+    <script>
+        const item = document.getElementById('zorro');
+        const destino = document.getElementById('destino-unico');
+
+        // PASO 1: Llenar la mochila (dragstart)
+        item.addEventListener('dragstart', (e) => {
+            // Guardamos: "text/plain" -> "zorro"
+            e.dataTransfer.setData("text/plain", e.target.id);
+        });
+
+        // PASO 2: Autorizar el destino (dragover)
+        destino.addEventListener('dragover', (e) => {
+            // OBLIGATORIO: Si no prevenimos el default, el navegador NO deja soltar.
+            e.preventDefault();
+        });
+
+        // PASO 3: Recibir y Mover (drop)
+        destino.addEventListener('drop', (e) => {
+            e.preventDefault(); // Evitamos que el navegador intente abrir el elemento como un enlace
+
+            // A. Leer la mochila (¿Qué ID me traes?)
+            const idArrastrado = e.dataTransfer.getData("text/plain");
+
+            // B. Buscar el elemento real en el DOM
+            const elementoReal = document.getElementById(idArrastrado);
+
+            // C. Moverlo (appendChild lo quita del origen y lo pone aquí)
+            destino.appendChild(elementoReal);
+        });
+    </script>
+
+</body>
+
+</html>

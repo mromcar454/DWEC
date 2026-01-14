@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        .caja {
+            width: 100px;
+            height: 100px;
+            background: #3498db;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .zona {
+            width: 100%;
+            height: 150px;
+            border: 3px dashed #ccc;
+            background: #f9f9f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* CLASES DINÁMICAS (CSS) */
+        .arrastrando {
+            opacity: 0.5;
+            border: 2px solid yellow;
+        }
+
+        .zona-activa {
+            background-color: #d5f5e3;
+            border-color: #2ecc71;
+            transform: scale(1.02);
+            transition: all 0.2s;
+        }
+    </style>
+
+    <div id="miElemento" class="caja" draggable="true">📦 Arrástrame</div>
+
+    <div id="miZona" class="zona">Zona de Soltar</div>
+
+    <script>
+        const elemento = document.getElementById('miElemento');
+        const zona = document.getElementById('miZona');
+
+        // 1. El evento se lanza cuando empezamos a arrastrar
+        elemento.addEventListener('dragstart', (e) => {
+            // Solo cambiamos estética
+            e.target.classList.add('arrastrando');
+        });
+
+        elemento.addEventListener('dragend', (e) => {
+            // Restauramos estética al terminar (suelte donde suelte)
+            e.target.classList.remove('arrastrando');
+        });
+
+        // 2. EVENTOS DE LA ZONA (El destino)
+        zona.addEventListener('dragenter', (e) => {
+            zona.classList.add('zona-activa');
+            zona.innerText = "¡Suelta, suelta!";
+        });
+
+        zona.addEventListener('dragleave', (e) => {
+            zona.classList.remove('zona-activa');
+            zona.innerText = "Zona de Soltar";
+        });
+    </script>
+
+</body>
+
+</html>

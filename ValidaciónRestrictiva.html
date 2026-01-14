@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div style="margin-top: 20px;">
+	<label>Nombre (Solo letras): </label>
+	<input type="text" id="input-letras">
+	<span id="error-letras" style="color: red; display: none;">¡Números prohibidos!</span>
+</div>
+
+<script>
+	const inputLetras = document.getElementById('input-letras');
+	const errorLetras = document.getElementById('error-letras');
+
+	inputLetras.addEventListener('keydown', (e) => {
+    	// Si la tecla es un número (0-9)
+    	if (e.key.match(/[0-9]/)) {
+        	e.preventDefault(); // Bloqueamos la escritura
+        	errorLetras.style.display = 'inline';
+    	} else {
+        	errorLetras.style.display = 'none';
+    	}
+	});
+</script>
+
+</body>
+</html>

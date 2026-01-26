@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejemplo Web Storage</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; transition: background 0.3s; }
+        .dark-mode { background-color: #333; color: white; }
+        .light-mode { background-color: #fff; color: black; }
+        button { margin-top: 10px; padding: 5px 10px; cursor: pointer; }
+    </style>
+</head>
+<body class="light-mode" id="cuerpo">
+
+    <h2>Configuración de Usuario</h2>
+    
+    <label for="nombre">Tu nombre:</label>
+    <input type="text" id="nombre" placeholder="Escribe tu nombre">
+    
+    <br><br>
+    
+    <button onclick="guardarPreferencias()">💾 Guardar Preferencias</button>
+    <button onclick="cambiarTema()">🌗 Cambiar Tema (Oscuro/Claro)</button>
+    <button onclick="borrarDatos()">🗑️ Borrar Datos</button>
+
+    <h3 id="mensaje"></h3>
+
+    <script>
+        // Elementos del DOM
+        const inputNombre = document.getElementById('nombre');
+        const cuerpo = document.getElementById('cuerpo');
+        const mensaje = document.getElementById('mensaje');
+        let temaActual = 'light-mode';
+
+        // 1. AL CARGAR: Verificar si existen datos guardados
+        window.onload = function() {
+            // Recuperamos el nombre
+            const nombreGuardado = localStorage.getItem("usuarioNombre");
+            // Recuperamos el tema
+            const temaGuardado = localStorage.getItem("usuarioTema");
+
+            if(nombreGuardado) {
+                inputNombre.value = nombreGuardado;
+                mensaje.innerText = `¡Hola de nuevo, ${nombreGuardado}!`;
+            }
+
+            if(temaGuardado) {
+                cuerpo.className = temaGuardado; // Aplicamos la clase guardada
+                temaActual = temaGuardado;
+            }
+        };
+
+        // 2. GUARDAR: Usamos setItem
+        function guardarPreferencias() {
+            const nombre = inputNombre.value;
+            
+            // Guardamos el nombre y el tema actual
+            localStorage.setItem("usuarioNombre", nombre);
+            localStorage.setItem("usuarioTema", temaActual);
+            
+            mensaje.innerText = "Datos guardados. Prueba a recargar la página.";
+        }
+
+        // Función auxiliar para cambiar el tema visualmente
+        function cambiarTema() {
+            if (cuerpo.classList.contains('light-mode')) {
+                cuerpo.className = 'dark-mode';
+                temaActual = 'dark-mode';
+            } else {
+                cuerpo.className = 'light-mode';
+                temaActual = 'light-mode';
+            }
+            // Guardar el tema automáticamente
+            localStorage.setItem("usuarioTema", temaActual);
+        }
+
+        // 3. BORRAR: Usamos removeItem o clear
+        function borrarDatos() {
+            // Eliminamos específicamente las claves que creamos
+            localStorage.removeItem("usuarioNombre");
+            localStorage.removeItem("usuarioTema");
+            
+            // O podríamos usar localStorage.clear() para borrar TODO.
+            
+            mensaje.innerText = "Datos borrados. Recarga para ver los valores por defecto.";
+            inputNombre.value = "";
+            cuerpo.className = 'light-mode'; // Reset visual
+        }
+    </script>
+</body>
+</html>

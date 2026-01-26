@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Rastrear Posición por Altitud</title>
+</head>
+<body>
+    <h2>Rastreo de Posición (solo si altitud &gt; 1000 m)</h2>
+    <pre id="salida"></pre>
+    <script>
+        const salida = document.getElementById('salida');
+        if ("geolocation" in navigator) {
+            let identificador = navigator.geolocation.watchPosition(posicion => { 
+                const lon = posicion.coords.longitude;
+                const lat = posicion.coords.latitude;
+                const alt = posicion.coords.altitude;
+                salida.textContent += `Lon: ${lon}\nLat: ${lat}\nAltitud actual: ${alt !== null ? alt : 'No disponible'}\n\n`;
+                console.log(`Lon: ${lon}`);
+                console.log(`Lat: ${lat}`); 
+                console.log(`Altitud actual: ${alt !== null ? alt : 'No disponible'}`);
+                if (alt === null) {
+                    salida.textContent += "No se puede obtener la altitud en este dispositivo/navegador.\n";
+                    navigator.geolocation.clearWatch(identificador);
+                } else if (alt < 1000) {
+                    salida.textContent += "Altitud baja. Deteniendo rastreo...\n";
+                    navigator.geolocation.clearWatch(identificador);
+                }
+            }, error => {
+                salida.textContent += `Error obteniendo ubicación: ${error.message}\n`;
+                console.log("Error obteniendo ubicación:", error.message);
+            }, {
+                enableHighAccuracy: true
+            });
+        } else {
+            salida.textContent = "La geolocalización no está soportada en este navegador.";
+        }
+    </script>
+</body>
+</html>
+

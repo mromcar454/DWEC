@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Tareas (JSON + WebStorage)</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 500px; margin: 0 auto; }
+        ul { list-style-type: none; padding: 0; }
+        li { background: #f4f4f4; margin: 5px 0; padding: 10px; border-left: 5px solid #007bff; }
+        input { padding: 10px; width: 60%; }
+        button { padding: 10px; cursor: pointer; }
+        .btn-add { background-color: #28a745; color: white; border: none; }
+        .btn-clear { background-color: #dc3545; color: white; border: none; margin-top: 20px;}
+    </style>
+</head>
+<body>
+
+    <h2>📝 Mi Lista de Tareas</h2>
+
+    <input type="text" id="inputTarea" placeholder="Nueva tarea...">
+    <button class="btn-add" onclick="agregarTarea()">Agregar</button>
+
+    <ul id="listaTareas">
+        </ul>
+
+    <button class="btn-clear" onclick="borrarTodo()">🗑️ Borrar Todo</button>
+
+    <script>
+        // Array donde guardaremos las tareas en memoria
+        let misTareas = []; 
+
+        // 1. CARGAR DATOS AL INICIAR
+        window.onload = function() {
+            // Recuperamos la cadena de texto del Storage
+            const tareasGuardadas = localStorage.getItem("storageTareas");
+
+            // Si hay datos, los convertimos de Texto JSON a Array JavaScript
+            if (tareasGuardadas) {
+                misTareas = JSON.parse(tareasGuardadas);
+                
+                // Recorremos el array para pintar cada tarea en la pantalla
+                misTareas.forEach(tarea => {
+                    dibujarTareaEnPantalla(tarea);
+                });
+            }
+        };
+
+        // 2. AGREGAR TAREA
+        function agregarTarea() {
+            const input = document.getElementById("inputTarea");
+            const nuevaTarea = input.value;
+
+            if (nuevaTarea === "") return; // No guardar vacíos
+
+            // A) Agregamos al Array
+            misTareas.push(nuevaTarea);
+
+            // B) Guardamos en LocalStorage (Transformando Array -> JSON String)
+            localStorage.setItem("storageTareas", JSON.stringify(misTareas));
+
+            // C) Dibujamos en pantalla y limpiamos el input
+            dibujarTareaEnPantalla(nuevaTarea);
+            input.value = "";
+        }
+
+        // 3. BORRAR TODO
+        function borrarTodo() {
+            // Limpiamos el Storage
+            localStorage.clear(); 
+            
+            // Limpiamos el Array en memoria
+            misTareas = [];
+            
+            // Limpiamos la pantalla (el HTML)
+            document.getElementById("listaTareas").innerHTML = "";
+        }
+
+        // Función auxiliar solo para tocar el HTML (DOM)
+        function dibujarTareaEnPantalla(textoTarea) {
+            const lista = document.getElementById("listaTareas");
+            const item = document.createElement("li");
+            item.textContent = textoTarea;
+            lista.appendChild(item);
+        }
+    </script>
+</body>
+</html>

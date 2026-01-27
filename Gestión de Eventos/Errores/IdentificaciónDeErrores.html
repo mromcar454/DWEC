@@ -1,0 +1,27 @@
+Ejercicio 4: Identificación de Errores (2 ptos)
+El siguiente código tiene dos errores que impiden que funcione correctamente. Encuéntralos y escribe la corrección al lado.
+Código Erróneo:
+JavaScript
+const caja = document.getElementById('caja');
+
+function cambiarColor() {
+    caja.style.color = 'red';
+}
+
+// Queremos que cambie de color al pasar el ratón por encima
+
+// Corrección 1: No llamar a la función, solo pasar la referencia
+caja.addEventListener('mouseover', cambiarColor); 
+
+// Corrección 2: Definir la función para recibir el evento
+function cambiarColor(e) {
+    e.target.style.color = 'red';
+}
+
+1. Escribe la línea corregida para que la función no se ejecute sola:
+caja.addEventListener('mouseover', cambiarColor);
+
+2. Escribe cómo definirías la función cambiarColor para poder usar el parámetro e dentro:
+function cambiarColor(e) {
+    e.target.style.color = 'red';
+}

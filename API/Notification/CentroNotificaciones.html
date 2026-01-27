@@ -32,7 +32,7 @@ HTML
             } else if (Notification.permission === "denied") {
                 estadoTexto.innerHTML = "Estado: <strong>Denegado ❌</strong> (Debes habilitarlo en el navegador)";
             } else {
-                // Si es 'default', pedimos permiso (Lo que dicen tus apuntes)
+                // Si es 'default', pedimos permiso 
                 Notification.requestPermission().then(respuesta => {
                     if (respuesta === "granted") {
                         estadoTexto.innerHTML = "Estado: <strong>Concedido ✅</strong>";

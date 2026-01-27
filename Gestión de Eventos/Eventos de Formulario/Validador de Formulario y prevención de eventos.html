@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<form id="registro-form" action="servidor.php" method="POST">
+  <p>
+    <label>Email:</label><br>
+    <input type="email" id="email" required>
+  </p>
+  <p>
+    <label>Repite tu Email:</label><br>
+    <input type="email" id="email-confirm" required>
+  </p>
+  <div id="error-box" style="color: red; font-weight: bold; margin-bottom: 10px;"></div>
+  <button type="submit">Registrarse</button>
+</form>
+
+<script>
+  const formulario = document.getElementById('registro-form');
+  const email = document.getElementById('email');
+  const emailConfirm = document.getElementById('email-confirm');
+  const errorBox = document.getElementById('error-box');
+
+  // 1. Evitar pegar texto (evento paste)
+  emailConfirm.addEventListener('paste', (e) => {
+      e.preventDefault(); // Detiene la acción de pegar
+      alert("Por seguridad, debes escribir el email manualmente.");
+  });
+
+  // 2. Validar antes de enviar (evento submit)
+  formulario.addEventListener('submit', (e) => {
+      // Limpiamos mensajes de error previos
+      errorBox.textContent = '';
+
+      // Comprobamos si los emails coinciden
+      if (email.value !== emailConfirm.value) {
+          e.preventDefault(); // IMPORTANTE: Cancela el envío del formulario
+          errorBox.textContent = 'Error: Los correos electrónicos no coinciden.';
+      }
+      // Si coinciden, el formulario se envía (acción por defecto)
+  });
+</script>
+</body>
+</html>

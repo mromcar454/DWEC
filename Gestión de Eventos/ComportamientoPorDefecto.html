@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+
+/*
+¿Qué hace la línea evento.preventDefault() en este contexto concreto?
+Evita que el formulario se envíe si la edad es menor de 18 años. Así, la página no se recarga ni se envían los datos al servidor, permitiendo mostrar el mensaje de alerta y mantener al usuario en el formulario.
+
+¿Qué ocurriría si el usuario introduce "15" en el campo edad y pulsa enviar si NO existiera esa línea?
+El formulario se enviaría igualmente, la página se recargaría y los datos se enviarían, aunque la edad fuera menor de 18 años. El mensaje de alerta podría mostrarse, pero inmediatamente después la página se recargaría y el usuario perdería el mensaje y el estado del formulario.
+
+Si cambiamos el evento 'submit' por 'click' asociado al botón de envío, ¿sería una buena práctica? (Sí/No y por qué brevemente)
+No sería una buena práctica, porque el evento 'submit' se activa siempre que se intenta enviar el formulario (ya sea con el botón, con Enter, etc.), mientras que 'click' solo funcionaría si el usuario hace clic en el botón, no cubriendo todos los casos posibles de envío.
+*/

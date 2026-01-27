@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos de Formulario y Focus</title>
+</head>
+<body>
+    <input type="text" id="campo-nombre">
+    <script>
+        const campo = document.getElementById('campo-nombre');
+
+        // Cuando el usuario entra en el campo
+        campo.addEventListener('focus', () => {
+            campo.style.backgroundColor = 'yellow';
+        });
+
+        // Cuando el usuario sale del campo
+        campo.addEventListener('blur', () => {
+            campo.style.backgroundColor = 'white';
+            // EXTRA: Acceder al valor que ha escrito el usuario
+            console.log("El usuario escribió: " + campo.value);
+        });
+    </script>
+</body>
+</html>

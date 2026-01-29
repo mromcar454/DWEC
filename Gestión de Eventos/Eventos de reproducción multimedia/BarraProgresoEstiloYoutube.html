@@ -52,6 +52,8 @@
 
         // 2. Evento PRINCIPAL: Actualizar la barra mientras se reproduce
         video.addEventListener('timeupdate', () => {
+
+            // Si no sé cuánto dura el video todavía, detente aquí y no hagas nada para no dividir por cero"
             if (!video.duration || Number.isNaN(video.duration)) return;
 
             const porcentaje = (video.currentTime / video.duration) * 100;

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+ 
+<form>
+  <label for="usuario">Nombre de Usuario:</label><br>
+  <input type="text" id="usuario" name="usuario" style="border: 1px solid #ccc; padding: 5px;">
+  <span id="mensaje-ayuda" style="color: red; font-size: 0.9em; margin-left: 10px;"></span>
+</form>
+
+<script>
+  // Obtenemos referencias a los elementos del DOM
+  const inputUsuario = document.getElementById('usuario');
+  const mensajeAyuda = document.getElementById('mensaje-ayuda');
+
+  // Evento cuando entra el foco (focus)
+  inputUsuario.addEventListener('focus', () => {
+      // Cambiamos el borde y el fondo al enfocar
+      inputUsuario.style.border = '2px solid blue';
+      inputUsuario.style.backgroundColor = 'aliceblue';
+  });
+
+  // Evento cuando sale el foco (blur)
+  inputUsuario.addEventListener('blur', () => {
+      // Restauramos estilos originales
+      inputUsuario.style.border = '1px solid #ccc'; 
+      inputUsuario.style.backgroundColor = '';
+
+      // Comprobamos si está vacío
+      // trim elimina los espacios en blanco al inicio y al final
+      if (inputUsuario.value.trim() === '') {
+          mensajeAyuda.textContent = 'El usuario no puede estar vacío';
+      } else {
+          mensajeAyuda.textContent = '';
+      }
+  });
+</script>
+
+</body>
+</html>

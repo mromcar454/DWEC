@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interacción con el Ratón y el Objeto Evento</title>
+  <style>
+    #zona-click {
+      width: 300px;
+      height: 200px;
+      background-color: #e0e0e0;
+      border: 2px dashed #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: sans-serif;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="zona-click">Haz clic aquí</div>
+  <script>
+    const zona = document.getElementById('zona-click');
+    const colorOriginal = '#e0e0e0';
+
+    zona.addEventListener('click', function(e) {
+      zona.textContent = `Coordenadas: (${e.clientX}, ${e.clientY})`;
+      if (e.altKey) {
+        zona.style.backgroundColor = 'gold';
+      } else {
+        zona.style.backgroundColor = colorOriginal;
+      }
+    });
+  </script>
+</body>
+</html>

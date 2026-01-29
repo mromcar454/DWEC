@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emoticono Sonriente</title>
+</head>
+<body>
+    <canvas id="lienzo" width="500" height="500"></canvas>
+    <script type="text/javascript">
+        function dibujarCarita() {
+            const lienzo = document.getElementById("lienzo");
+            if (lienzo && lienzo.getContext) {
+                const ctx = lienzo.getContext("2d");
+                // Cara
+                ctx.beginPath();
+                ctx.arc(250, 250, 200, 0, Math.PI * 2, true);
+                ctx.fillStyle = "#FFEB3B";
+                ctx.fill();
+                ctx.strokeStyle = "#FBC02D";
+                ctx.lineWidth = 4;
+                ctx.stroke();
+
+                // Boca (sonrisa)
+                ctx.beginPath();
+                ctx.arc(250, 270, 120, 0, Math.PI, false);
+                ctx.strokeStyle = "#333";
+                ctx.lineWidth = 8;
+                ctx.stroke();
+
+                // Ojo izquierdo
+                ctx.beginPath();
+                ctx.arc(190, 210, 25, 0, Math.PI * 2, true);
+                ctx.fillStyle = "#333";
+                ctx.fill();
+
+                // Ojo derecho
+                ctx.beginPath();
+                ctx.arc(310, 210, 25, 0, Math.PI * 2, true);
+                ctx.fillStyle = "#333";
+                ctx.fill();
+            }
+        }
+        dibujarCarita();
+    </script>
+</body>
+</html>

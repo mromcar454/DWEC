@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<!--
+Ejercicio 3: Efectos Hover (MouseOver / MouseOut)
+Objetivo: Diferenciar el comportamiento del ratón al entrar y salir de un elemento.
+-->
+<div class="card" style="width: 200px; border: 1px solid #ddd; padding: 10px; text-align: center;">
+  <img id="producto-img" 
+       src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Adidas_Superstar_White_Black.JPG/320px-Adidas_Superstar_White_Black.JPG" 
+       alt="Zapatillas Deportivas" 
+       style="transition: opacity 0.3s; width: 150px; height: 150px; object-fit: cover;">
+  <h3>Zapatillas Deportivas</h3>
+</div>
+
+<script>
+  // URLs de imágenes públicas de zapatillas deportivas
+  const srcOriginal = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Adidas_Superstar_White_Black.JPG/320px-Adidas_Superstar_White_Black.JPG";
+  const srcHover = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Nike_Air_Max_1_OG_Anniversary_Red_2017.jpg/320px-Nike_Air_Max_1_OG_Anniversary_Red_2017.jpg";
+
+  // Referencia a la imagen
+  const img = document.getElementById('producto-img');
+
+  // Precargamos la imagen de hover para evitar parpadeos
+  const imgPreload = new Image();
+  imgPreload.src = srcHover;
+
+  // Evento: ratón entra en la imagen
+  img.addEventListener('mouseover', function() {
+    img.src = srcHover;
+    img.style.opacity = 0.8;
+  });
+
+  // Evento: ratón sale de la imagen
+  img.addEventListener('mouseout', function() {
+    img.src = srcOriginal;
+    img.style.opacity = 1;
+  });
+</script>
+</body>
+</html>

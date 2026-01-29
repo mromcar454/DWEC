@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La solución infernal</title>
+    <style>
+      .palabra {
+        opacity: 0.3;
+        transition: opacity 0.3s;
+      }
+      .palabra.animar {
+        opacity: 1;
+        color: red;
+      }
+    </style>
+</head>
+<body>
+  <div class="contenedor">
+    <h2 class="palabra">El</h2>
+    <h2 class="palabra">Callback</h2>
+    <h2 class="palabra">Hell</h2>
+  </div>
+
+  <script type="text/javascript">
+    const palabras = document.querySelectorAll(".palabra");
+
+    const animar = (palabra) => {
+      palabra.classList.add("animar");
+    };
+
+    // Ejemplo de "callback hell" (timeouts anidados)
+    const animarPalabras = (animarFn) => {
+      if (palabras.length < 3) return;
+
+      setTimeout(() => {
+        animarFn(palabras[0]);
+
+        setTimeout(() => {
+          animarFn(palabras[1]);
+
+          setTimeout(() => {
+            animarFn(palabras[2]);
+          }, 500);
+        }, 300);
+      }, 100);
+    };
+
+    animarPalabras(animar);
+  </script>
+</body>
+</html>

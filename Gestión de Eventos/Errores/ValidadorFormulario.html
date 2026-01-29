@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validador de Usuario</title>
+</head>
+<body>
+    <h1>Validador de Usuario</h1>
+    <form id="usuarioForm">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <br>
+        <label for="edad">Edad:</label>
+        <input type="number" id="edad" name="edad" required>
+        <br>
+        <button type="submit">Validar</button>
+    </form>
+    <div id="resultado"></div>
+    <script>
+function validarUsuario(usuario) {
+  if (!usuario) {
+    throw new ReferenceError("El objeto 'usuario' no está definido o es nulo.");
+  }
+
+  if (typeof usuario.nombre !== "string") {
+    throw new TypeError("El nombre del usuario debe ser una cadena de texto.");
+  }
+
+  if (typeof usuario.edad !== "number" || isNaN(usuario.edad)) {
+    throw new TypeError("La edad del usuario debe ser un número.");
+  }
+
+  if (usuario.edad < 0 || usuario.edad > 120) {
+    throw new RangeError("La edad debe ser un valor entre 0 y 120.");
+  }
+  
+  return "Usuario validado con éxito.";
+}
+
+document.getElementById('usuarioForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+  const nombre = document.getElementById('nombre').value;
+  const edad = Number(document.getElementById('edad').value);
+  const resultado = document.getElementById('resultado');
+  try {
+    const mensaje = validarUsuario({ nombre, edad });
+    resultado.textContent = mensaje;
+    resultado.style.color = "green";
+  } catch (error) {
+    resultado.textContent = `${error.name}: ${error.message}`;
+    resultado.style.color = "red";
+  } finally {
+    console.log("Validación finalizada.");
+  }
+});
+    </script>
+</body>
+</html>

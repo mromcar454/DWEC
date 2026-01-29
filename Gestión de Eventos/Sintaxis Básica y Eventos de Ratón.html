@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+    <button id="btn-saludo">Saludar</button>
+    <p id="texto">Esperando...</p>
+    <script>
+    // 1. Seleccionamos el botón
+    const boton = document.getElementById('btn-saludo');
+    const parrafo = document.querySelector('#texto');
+
+    // 2. Añadimos el escuchador de eventos
+    boton.addEventListener('click', (e) => {
+        // 3. Cambiamos el texto del párrafo
+        parrafo.textContent = "¡Hola Mundo!";
+        // 4. Imprimimos en consola el tipo de evento disparado
+        console.log("El evento disparado es: " + e.type);
+    });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,74 @@
+HTML
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejemplo API Notification</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; text-align: center; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; margin: 10px; }
+        .btn-permiso { background-color: #007bff; color: white; border: none; }
+        .btn-notif { background-color: #28a745; color: white; border: none; }
+    </style>
+</head>
+<body>
+
+    <h1>📩 Centro de Notificaciones</h1>
+    <p>Para probar, primero habilita los permisos y luego envía la notificación.</p>
+
+    <button class="btn-permiso" onclick="solicitarPermiso()">1. Habilitar Notificaciones</button>
+    <button class="btn-notif" onclick="lanzarNotificacion()">2. Simular Mensaje Nuevo</button>
+
+    <p id="estado">Estado: <strong>Desconocido</strong></p>
+
+    <script>
+        const estadoTexto = document.getElementById('estado');
+
+        // Función 1: Gestionar el Permiso
+        function solicitarPermiso() {
+            // Verificamos si ya apoyó o denegó antes
+            if (Notification.permission === "granted") {
+                estadoTexto.innerHTML = "Estado: <strong>Concedido ✅</strong> (Ya tenías permiso)";
+            } else if (Notification.permission === "denied") {
+                estadoTexto.innerHTML = "Estado: <strong>Denegado ❌</strong> (Debes habilitarlo en el navegador)";
+            } else {
+                // Si es 'default', pedimos permiso 
+                Notification.requestPermission().then(respuesta => {
+                    if (respuesta === "granted") {
+                        estadoTexto.innerHTML = "Estado: <strong>Concedido ✅</strong>";
+                        new Notification("¡Permiso aceptado!", { body: "Ahora puedes recibir avisos." });
+                    } else {
+                        estadoTexto.innerHTML = "Estado: <strong>Denegado ❌</strong>";
+                    }
+                });
+            }
+        }
+
+        // Función 2: Crear la Notificación Avanzada
+        function lanzarNotificacion() {
+            if (Notification.permission === "granted") {
+                
+                // Opciones avanzadas (cuerpo, icono, imagen...)
+                const opciones = {
+                    body: "Tienes un nuevo mensaje de soporte técnico.",
+                    icon: "https://cdn-icons-png.flaticon.com/512/1041/1041916.png", // Icono de ejemplo
+                    vibrate: [200, 100, 200] // Vibra en móviles (si el navegador lo soporta)
+                };
+
+                // Creamos el objeto Notification
+                const notificacion = new Notification("Nuevo Mensaje", opciones);
+
+                // Evento: Qué pasa si el usuario hace clic en la notificación
+                notificacion.onclick = function() {
+                    window.focus(); // Intenta traer la ventana al frente
+                    alert("Has hecho clic en la notificación. Te llevamos al chat.");
+                    notificacion.close(); // Cerramos la notificación
+                };
+
+            } else {
+                alert("No tienes permiso para mostrar notificaciones.");
+            }
+        }
+    </script>
+</body>
+</html>

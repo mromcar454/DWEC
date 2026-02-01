@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promesas - Forma A (.then() y .catch())</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; }
+        pre { background: #f4f4f4; padding: 1em; border-radius: 5px; }
+        button { padding: 0.5em 1em; font-size: 1em; }
+    </style>
+</head>
+<body>
+    <h1>Promesas en JavaScript: Forma A</h1>
+    <p>
+        <strong>Forma A: Usando <code>.then()</code> y <code>.catch()</code></strong><br>
+        Es la forma clásica. Le dices al código: "Cuando termines, entonces haz esto. Si fallas, captura el error".
+    </p>
+    <button id="leerPortapapeles">Leer texto del portapapeles</button>
+    <pre id="resultado"></pre>
+  
+   
+    <script>
+        const btn = document.getElementById('leerPortapapeles');
+        const resultado = document.getElementById('resultado');
+
+        btn.addEventListener('click', () => {
+            navigator.clipboard.readText()
+                .then((texto) => {
+                    resultado.textContent = "El texto del portapapeles es:\n" + texto;
+                })
+                .catch((error) => {
+                    resultado.textContent = "No se pudo leer el portapapeles:\n" + error;
+                });
+        });
+    </script>
+</body>
+</html>

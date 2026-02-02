@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petición Google Fonts (JSON)</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; }
+        button { padding: 0.5em 1em; font-size: 1em; }
+        pre { background: #f4f4f4; padding: 1em; border-radius: 5px; min-height: 60px;}
+    </style>
+</head>
+<body>
+    <h1>Petición a Google Fonts (Formato JSON)</h1>
+    <button id="btnFuente">Obtener información de fuente (JSON)</button>
+    <pre id="salida"></pre>
+
+    <script>
+        const btn = document.getElementById('btnFuente');
+        const salida = document.getElementById('salida');
+
+        async function obtenerInfoFuente() {
+            salida.textContent = "Solicitando información de fuente...";
+            try {
+                // Ejemplo usando la API de Google Fonts en formato JSON
+                const respuesta = await fetch("https://www.googleapis.com/webfonts/v1/webfonts?key=YOUR_API_KEY");
+                if (respuesta.ok) {
+                    const datos = await respuesta.json();
+                    // Mostramos solo la información de la fuente 'Roboto' como ejemplo
+                    const roboto = datos.items.find(f => f.family === "Roboto");
+                    salida.textContent = roboto
+                        ? JSON.stringify(roboto, null, 2)
+                        : "No se encontró la fuente Roboto en la respuesta.";
+                    console.log(roboto);
+                } else {
+                    salida.textContent = `Error: ${respuesta.status} ${respuesta.statusText}`;
+                }
+            } catch (error) {
+                salida.textContent = "Error en la consulta:\n" + error;
+                console.log(error);
+            }
+        }
+
+        btn.addEventListener('click', obtenerInfoFuente);
+    </script>
+</body>
+</html>

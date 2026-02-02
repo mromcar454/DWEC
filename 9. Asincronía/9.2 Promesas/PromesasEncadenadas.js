@@ -13,3 +13,16 @@ promesa
     console.log("Mensaje 3: Último mensaje en la cadena de promesas.");
 }
 );
+
+// --- Con async/await ---
+async function ejemploAsyncAwait() {
+
+    await promesa;
+    console.log("Mensaje 1: La promesa se ha resuelto.");
+
+    // Simulamos el encadenamiento ejecutando las siguientes instrucciones en orden
+    console.log("Mensaje 2: Continuamos con la cadena de promesas.");
+    console.log("Mensaje 3: Último mensaje en la cadena de promesas.");
+}
+
+ejemploAsyncAwait();

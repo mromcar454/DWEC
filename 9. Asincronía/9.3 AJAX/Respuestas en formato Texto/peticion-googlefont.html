@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petición Google Font (fetch texto)</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; }
+        pre { background: #f4f4f4; padding: 1em; border-radius: 5px; min-height: 60px;}
+        button { padding: 0.5em 1em; font-size: 1em; }
+    </style>
+</head>
+<body>
+    <h1>Obtener hoja de estilos de Google Fonts</h1>
+    <button id="btnFuente">Obtener estilos de Roboto</button>
+    <pre id="salida"></pre>
+
+    <script>
+        const btn = document.getElementById('btnFuente');
+        const salida = document.getElementById('salida');
+
+        async function obtenerEstilosFuente() {
+            salida.textContent = "Solicitando hoja de estilos...";
+            try {
+                // 1. Hacemos la petición a Google solicitando la fuente 'Roboto'
+                const respuesta = await fetch("https://fonts.googleapis.com/css?family=Roboto");
+
+                // 2. Usamos el método .text() porque esperamos código CSS (texto plano)
+                const contenidoCSS = await respuesta.text();
+
+                // 3. Mostramos el resultado
+                salida.textContent = contenidoCSS;
+                console.log("La hoja de estilos devuelta es:");
+                console.log(contenidoCSS);
+
+            } catch (error) {
+                salida.textContent = "Error al conectar con Google:\n" + error;
+                console.log("Error al conectar con Google:", error);
+            }
+        }
+
+        btn.addEventListener('click', obtenerEstilosFuente);
+    </script>
+</body>
+</html>

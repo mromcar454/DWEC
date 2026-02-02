@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta Matrícula (JSON)</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; }
+        label, input, button { font-size: 1em; }
+        pre { background: #f4f4f4; padding: 1em; border-radius: 5px; min-height: 60px;}
+        input { margin-right: 1em; }
+    </style>
+</head>
+<body>
+    <h1>Consulta de Vehículo por Matrícula (JSON)</h1>
+    <label for="matricula">Matrícula:</label>
+    <input type="text" id="matricula" value="1702TGG" maxlength="10">
+    <button id="consultar">Consultar</button>
+    <pre id="salida"></pre>
+
+    <script>
+        const btn = document.getElementById('consultar');
+        const salida = document.getElementById('salida');
+        const input = document.getElementById('matricula');
+
+        async function consultarMatricula() {
+            const matricula = input.value.trim();
+            if (!matricula) {
+                salida.textContent = "Introduce una matrícula.";
+                return;
+            }
+            salida.textContent = "Consultando...";
+            try {
+                const respuesta = await fetch(`https://lopegonzalez.es/servicios/vehiculos.php?matricula=${encodeURIComponent(matricula)}`);
+                if (respuesta.ok) {
+                    const datos = await respuesta.json();
+                    salida.textContent = JSON.stringify(datos, null, 2);
+                    console.log(datos);
+                } else {
+                    salida.textContent = `Error: ${respuesta.status} ${respuesta.statusText}`;
+                }
+            } catch (error) {
+                salida.textContent = "Error en la consulta:\n" + error;
+                console.log(error);
+            }
+        }
+
+        btn.addEventListener('click', consultarMatricula);
+    </script>
+</body>
+</html>
+

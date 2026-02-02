@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Ejemplo Fetch - Tiempo</title>
+    <style>
+        body {
+            font-family: Arial;
+            max-width: 700px;
+            margin: 20px
+        }
+
+        label,
+        input,
+        button {
+            font-size: 1rem
+        }
+
+        #loader {
+            display: none
+        }
+
+        .error {
+            color: #b00020
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Buscar tiempo (Open-Meteo)</h1>
+    <label for="ciudad">Ciudad:</label>
+    <input id="ciudad" placeholder="ej. Madrid" />
+    <button id="buscar">Buscar</button>
+    <span id="loader">Cargando...</span>
+    <div id="resultado"></div>
+
+    <script>
+        const btn = document.getElementById('buscar');
+        const input = document.getElementById('ciudad');
+        const resultado = document.getElementById('resultado');
+        const loader = document.getElementById('loader');
+
+        async function buscarTiempo(ciudad) {
+            resultado.innerHTML = '';
+            if (!ciudad) return resultado.innerHTML = '<p class="error">Escribe una ciudad.</p>';
+            loader.style.display = 'inline';
+            try {
+                // 1) Geocoding (buscar coordenadas)
+                const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(ciudad)}&count=1`);
+                if (!geoRes.ok) throw new Error('Error en geocoding');
+                const geoData = await geoRes.json();
+                const place = geoData.results && geoData.results[0];
+                if (!place) return resultado.innerHTML = '<p class="error">Ciudad no encontrada.</p>';
+
+                const lat = place.latitude;
+                const lon = place.longitude;
+
+                // 2) Obtener tiempo actual
+                const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&timezone=Europe/Madrid`);
+                if (!weatherRes.ok) throw new Error('Error al obtener el tiempo');
+                const weatherData = await weatherRes.json();
+                const current = weatherData.current_weather;
+
+                // Mostrar resultado
+                resultado.innerHTML = `
+          <h2>${place.name}${place.admin1 ? ', ' + place.admin1 : ''} (${place.country})</h2>
+          <p>Temperatura: <strong>${current.temperature}°C</strong></p>
+          <p>Viento: <strong>${current.windspeed} km/h</strong> (dir ${current.winddirection}°)</p>
+          <p>Hora (local): ${current.time}</p>
+        `;
+            } catch (err) {
+                resultado.innerHTML = `<p class="error">Error: ${err.message}</p>`;
+            } finally {
+                loader.style.display = 'none';
+            }
+        }
+
+        btn.addEventListener('click', () => buscarTiempo(input.value.trim()));
+        input.addEventListener('keydown', e => { if (e.key === 'Enter') buscarTiempo(input.value.trim()) });
+    </script>
+</body>
+
+</html>
+
+

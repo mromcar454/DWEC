@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petición pública JSON (Usuarios)</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; }
+        button { padding: 0.5em 1em; font-size: 1em; }
+        pre { background: #f4f4f4; padding: 1em; border-radius: 5px; min-height: 60px;}
+    </style>
+</head>
+<body>
+    <h1>Petición pública JSON (Usuarios)</h1>
+    <button id="btnUsuarios">Obtener usuarios</button>
+    <pre id="salida"></pre>
+
+    <script>
+        const btn = document.getElementById('btnUsuarios');
+        const salida = document.getElementById('salida');
+
+        async function obtenerUsuarios() {
+            salida.textContent = "Solicitando usuarios...";
+            try {
+                // API pública de ejemplo: https://jsonplaceholder.typicode.com/users
+                const respuesta = await fetch("https://jsonplaceholder.typicode.com/users");
+                if (respuesta.ok) {
+                    const datos = await respuesta.json();
+                    salida.textContent = JSON.stringify(datos, null, 2);
+                    console.log(datos);
+                } else {
+                    salida.textContent = `Error: ${respuesta.status} ${respuesta.statusText}`;
+                }
+            } catch (error) {
+                salida.textContent = "Error en la consulta:\n" + error;
+                console.log(error);
+            }
+        }
+
+        btn.addEventListener('click', obtenerUsuarios);
+    </script>
+</body>
+</html>

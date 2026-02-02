@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX con Fetch y Promesas</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; }
+        button { padding: 0.5em 1em; font-size: 1em; margin-right: 1em; }
+        pre { background: #f4f4f4; padding: 1em; border-radius: 5px; min-height: 60px;}
+    </style>
+</head>
+<body>
+    <h1>AJAX con Fetch y Promesas</h1>
+    <button id="btnCorrecto">Consultar INE (Correcto)</button>
+    <button id="btnError">Consultar URL Incorrecta</button>
+    <pre id="salida"></pre>
+
+    <script>
+        const salida = document.getElementById('salida');
+        const btnCorrecto = document.getElementById('btnCorrecto');
+        const btnError = document.getElementById('btnError');
+
+        // Consulta correcta usando async/await
+        async function consultarINE() {
+            salida.textContent = "Consultando INE...";
+            try {
+                const respuesta = await fetch("https://servicios.ine.es/wstempus/js/ES/OPERACIONES_DISPONIBLES");
+                // Mostramos el estado y el objeto respuesta
+                salida.textContent = `Código respuesta: ${respuesta.status} = ${respuesta.statusText}\n\nObjeto respuesta:\n` + JSON.stringify(respuesta, null, 2);
+                console.info(respuesta);
+            } catch (error) {
+                salida.textContent = "Error de red:\n" + error;
+                console.log(error);
+            }
+        }
+
+        // Consulta con error de red
+        async function consultarError() {
+            salida.textContent = "Consultando URL incorrecta...";
+            try {
+                const respuesta = await fetch("https://fakeurl");
+                salida.textContent = `Código respuesta: ${respuesta.status} = ${respuesta.statusText}\n\nObjeto respuesta:\n` + JSON.stringify(respuesta, null, 2);
+                console.info(respuesta);
+            } catch (error) {
+                salida.textContent = "Error de red:\n" + error;
+                console.log(error);
+            }
+        }
+
+        btnCorrecto.addEventListener('click', consultarINE);
+        btnError.addEventListener('click', consultarError);
+    </script>
+</body>
+</html>

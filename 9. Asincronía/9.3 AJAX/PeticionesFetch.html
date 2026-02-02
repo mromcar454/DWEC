@@ -85,37 +85,3 @@
 </html>
 
 
-fetch("https://servicios.ine.es/wstempus/js/ES/OPERACIONES_DISPONIBLES")
-.then(respuesta=>
-console.log('Código respuesta: $(respuesta.status) = $(respuesta.statusText}');
-})
-.catch(error=>{
-console.log(error);
-});
-
-
-async function consultarINE() {
-try {
-
-const respuesta = await fetch("https://servicios.ine.es/wstempus/js/ES/OPERACIONES_DISPONIBLES");
-
-// Mostramos el estado (Ej: 200 OK)
-console.log(`Código respuesta: ${respuesta.status} = ${respuesta.statusText}`);
-
-} catch (error) {
-// Si hay error de red, el flujo salta inmediatamente aquí
-console.log(error);
-}
-}
-
-// Ejecutamos la función
-consultarINE();
-
-
-fetch("https://fakeurl")
-then(respuesta=>{
-console.log(respueta.statusText);
-})
-.catch(error    =>{
-console.log('Error de red: ', error);
-});

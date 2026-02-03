@@ -12,3 +12,5 @@ console.log("Antes de ejecutar accionAsincrona");
 muestraMensaje();
 console.log("Después de ejecutar accionAsincrona");
 
+
+

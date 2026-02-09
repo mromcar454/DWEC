@@ -34,24 +34,24 @@ document.addEventListener('scroll', (e) => {
     e.preventDefault();
 })
 
-heroe.addEventListener('keydown', (e) => {
+document.addEventListener('keydown', (e) => {
     e.preventDefault();
 
     if (e.key === 'ArrowUp') {
         ejeX = ejeX - speed;
-        e.target.style.top = ejeX+'px';
+        heroe.style.top = ejeX+'px';
     }
     if (e.key === 'ArrowDown') {
         ejeX = ejeX + speed;
-        e.target.style.top = ejeX+'px';
+        heroe.style.top = ejeX+'px';
     }
     if (e.key === 'ArrowLeft') {
         ejeY = ejeY - speed;
-        e.target.style.left = ejeY+'px';
+        heroe.style.left = ejeY+'px';
     }
     if (e.key === 'ArrowRight') {
         ejeY = ejeY + speed;
-        e.target.style.left = ejeY+'px';
+        heroe.style.left = ejeY+'px';
     }
 })
 

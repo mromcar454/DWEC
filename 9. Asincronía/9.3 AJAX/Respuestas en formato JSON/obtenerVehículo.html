@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Datos del Vehículo</title>
+  <style>
+    #vehiculo-container {
+      font-family: Arial, sans-serif;
+      margin: 2em;
+      padding: 1em;
+      border: 1px solid #ccc;
+      max-width: 400px;
+    }
+    .color-caja {
+      width: 80px;
+      height: 30px;
+      display: inline-block;
+      border: 1px solid #888;
+      margin-bottom: 1em;
+      vertical-align: middle;
+    }
+    .cilindrada {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div id="vehiculo-container">
+    Cargando datos del vehículo...
+  </div>
+  <script>
+    async function obtenerVehiculo() {
+      try {
+        const respuesta = await fetch("https://lopegonzalez.es/servicios/vehiculos.php?matricula=1702TGG");
+        if (!respuesta.ok) {
+          throw new Error("Error en la petición: " + respuesta.status);
+        }
+        const datos = await respuesta.json();
+
+        // Construir el HTML
+        const contenedor = document.getElementById('vehiculo-container');
+        contenedor.innerHTML = `
+          <h2>${datos.marca} ${datos.modelo}</h2>
+          <div>
+            Color: 
+            <span class="color-caja" style="background:${datos.color};"></span>
+            <span>${datos.color}</span>
+          </div>
+          <div>
+            Matrícula: ${datos.matricula}
+          </div>
+          <div>
+            Cilindrada: <span class="cilindrada">${datos.cilindrada}</span>
+          </div>
+        `;
+      } catch (error) {
+        document.getElementById('vehiculo-container').textContent = "Error al obtener los datos: " + error;
+      }
+    }
+    obtenerVehiculo();
+  </script>
+</body>
+</html>

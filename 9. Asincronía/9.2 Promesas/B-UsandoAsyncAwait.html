@@ -16,24 +16,16 @@
         <strong>Forma B: Usando <code>async</code> / <code>await</code> (Más moderno y legible)</strong><br>
         Esta forma hace que el código asíncrono parezca código normal (síncrono). Usamos <code>await</code> para decirle a JavaScript: "Pausa aquí y espera a que la promesa se resuelva antes de pasar a la siguiente línea".
     </p>
-    <button id="copiar">Copiar texto al portapapeles</button>
+    
     <button id="leer">Leer texto del portapapeles</button>
     <pre id="resultado"></pre>
     <h2>Código de ejemplo:</h2>
    
     <script>
         const btnCopiar = document.getElementById('copiar');
-        const btnLeer = document.getElementById('leer');
+        
         const resultado = document.getElementById('resultado');
 
-        async function copiarAlPortapapeles() {
-            try {
-                await navigator.clipboard.writeText("Texto copiado desde JS con Async/Await");
-                resultado.textContent = "¡Texto copiado con éxito!";
-            } catch (error) {
-                resultado.textContent = "Error al copiar: " + error;
-            }
-        }
 
         async function obtenerPortapapeles() {
             try {
@@ -44,7 +36,7 @@
             }
         }
 
-        btnCopiar.addEventListener('click', copiarAlPortapapeles);
+        
         btnLeer.addEventListener('click', obtenerPortapapeles);
     </script>
 </body>

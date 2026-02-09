@@ -74,6 +74,18 @@ origen.addEventListener("dragStart", (e) => {
 })
 // ---------------------------------------------------------------------------------------------------------------
 
+let menu = document.getElementById("menu-contextual");
+let borrar = document.getElementById("opcion-borrar");
+let info = document.getElementById("opcion-info");
+
+
+
+document.addEventListener("mousedown", (e) => {
+    e.preventDefault();
+    menu.style.display = "block";
+
+
+})
 
 
 

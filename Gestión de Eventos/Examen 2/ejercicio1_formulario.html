@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>RPG Ejercicio 1: El Código Secreto</title>
+    <style>
+        body { font-family: 'Courier New', monospace; background: #222; color: #0f0; padding: 40px; text-align: center; }
+        .panel { border: 2px solid #0f0; padding: 30px; display: inline-block; border-radius: 10px; background: #000; }
+        input { padding: 10px; background: #111; border: 1px solid #0f0; color: #fff; font-size: 1.2rem; text-align: center; }
+        button { padding: 10px 20px; font-size: 1rem; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        button:disabled { background: #555; color: #888; cursor: not-allowed; border: none; }
+        button:enabled { background: #0f0; color: #000; border: none; }
+        .instrucciones { background: #333; color: white; padding: 15px; margin-bottom: 20px; border-radius: 5px; text-align: left; max-width: 600px; margin: 0 auto 20px auto; }
+    </style>
+</head>
+<body>
+
+    <div class="instrucciones">
+        <h3>📜 Misión 1: Decodificador de Seguridad</h3>
+        <p>El sistema de la nave requiere un algoritmo de entrada estricto:</p>
+        <ol>
+            <li><strong>Filtro de Caracteres:</strong> Es físicamente imposible escribir <strong>VOCALES</strong> (a, e, i, o, u) en la caja de texto. Bloquéalas.</li>
+            <li><strong>Formato:</strong> El texto debe aparecer siempre en <strong>MAYÚSCULAS</strong>, independientemente de cómo lo escriba el usuario.</li>
+            <li><strong>Protocolo de Envío:</strong> El botón debe permanecer bloqueado hasta que el código tenga una longitud mínima de <strong>6 caracteres</strong>.</li>
+        </ol>
+    </div>
+
+    <div class="panel">
+        <h2>🔐 ACCESO AL SISTEMA</h2>
+        <form id="form-seguridad">
+            <input type="text" id="campo-clave" placeholder="SISTEMA BLOQUEADO" autocomplete="off">
+            <br><br>
+            <button type="submit" id="btn-enviar" disabled>ENVIAR DATOS</button>
+        </form>
+    </div>
+
+    </body>
+</html>

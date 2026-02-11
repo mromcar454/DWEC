@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>RPG Ejercicio 4: Interacción</title>
+    <style>
+        body { font-family: sans-serif; background: #2c3e50; padding: 20px; }
+        
+        .enemigo-container { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+        .enemigo {
+            width: 120px; height: 120px;
+            background: #ecf0f1; border: 4px solid #bdc3c7;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; cursor: crosshair; user-select: none;
+            position: relative;
+        }
+
+        /* Menú oculto */
+        #menu-accion {
+            display: none; position: absolute;
+            background: white; border: 2px solid black;
+            box-shadow: 4px 4px 0 black; z-index: 100; min-width: 150px;
+        }
+        #menu-accion div { padding: 10px; border-bottom: 1px solid #ccc; cursor: pointer; }
+        #menu-accion div:hover { background: #eee; }
+
+        .instrucciones { background: #fff; padding: 15px; border-radius: 5px; margin-bottom: 30px; text-align: center; }
+        .envenenado { background-color: #2ecc71 !important; border-color: #27ae60 !important; transition: background 1s; }
+    </style>
+</head>
+<body>
+
+    <div class="instrucciones">
+        <h3>🧙‍♂️ Misión 4: Grimorio de Hechizos</h3>
+        <p>Los enemigos requieren interacción avanzada mediante ratón:</p>
+        <ul style="text-align: left; display: inline-block;">
+            <li><strong>Menú de Batalla:</strong> Al hacer click derecho sobre un enemigo, despliega el menú <code>#menu-accion</code> en la posición del cursor (y anula el menú del navegador).</li>
+            <li><strong>Bola de Fuego:</strong> Elimina al enemigo instantáneamente.</li>
+            <li><strong>Veneno:</strong> Aplica el efecto visual (clase <code>envenenado</code>) tras un retardo exacto de 2 segundos.</li>
+            <li><strong>Cancelar:</strong> Un click izquierdo fuera del menú debe cerrarlo.</li>
+        </ul>
+    </div>
+
+    <div class="enemigo-container">
+        <div class="enemigo" id="e1">👹</div>
+        <div class="enemigo" id="e2">💀</div>
+        <div class="enemigo" id="e3">👻</div>
+        <div class="enemigo" id="e4">👽</div>
+        <div class="enemigo" id="e5">🤖</div>
+    </div>
+
+    <div id="menu-accion">
+        <div id="btn-fuego">🔥 Bola de Fuego</div>
+        <div id="btn-veneno">🧪 Veneno (Delay)</div>
+    </div>
+
+    </body>
+</html>

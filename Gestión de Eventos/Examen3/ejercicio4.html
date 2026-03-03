@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Ejercicio 4 - Panel Estratégico</title>
+<style>
+    body { font-family: Arial; padding: 40px; }
+
+    .personaje {
+        width: 120px;
+        height: 120px;
+        background-color: orange;
+        margin: 20px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    #menu-contextual {
+        position: absolute;
+        background-color: #333;
+        color: white;
+        display: none;
+        flex-direction: column;
+        min-width: 150px;
+        z-index: 1000;
+    }
+
+    #menu-contextual div {
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    #menu-contextual div:hover {
+        background-color: #555;
+    }
+
+    .congelado {
+        background-color: lightblue !important;
+    }
+</style>
+</head>
+<body>
+
+<h2>Panel de Acciones Estratégicas</h2>
+
+<div class="personaje">Enemigo 1</div>
+<div class="personaje">Enemigo 2</div>
+<div class="personaje">Enemigo 3</div>
+
+<div id="menu-contextual">
+    <div data-accion="congelar">Congelar</div>
+    <div data-accion="explosion">Explosión</div>
+</div>
+
+<script src="script4NombreApellidos.js"></script>
+</body>
+</html>
